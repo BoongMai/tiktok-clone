@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { publicRouter } from "~/routes";
 import { DefaultLayout } from "~/components/Layout";
+import 'antd/dist/antd.min.css'
 
 function App() {
   return (

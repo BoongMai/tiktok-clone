@@ -7,7 +7,7 @@ function Sidebar() {
   return(
     <>
       <aside className={cx('wrapper')}> 
-        <h2>Sidebar nè ba</h2>
+        <div>addass</div>
       </aside>
     </>
   )
