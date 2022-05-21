@@ -6,6 +6,7 @@
     --text-color: #333;
 
     // Default layout
+    
     --defaul-layout-header-height: 60px;
     --defaul-layout-width: 1150px;
     --black: #000;
@@ -29,7 +30,6 @@ body {
     text-rendering: optimizeSpeed;
     color: var(--text-color);
 }
-
 
 button,
 input {

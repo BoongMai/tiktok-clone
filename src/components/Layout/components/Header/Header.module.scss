@@ -22,8 +22,12 @@
 
 .logo {}
 
-.search {
+.search,
+.search-result {
     width: 361px;
+}
+
+.search {
     height: var(--search-height);
     display: flex;
     position: relative;
@@ -41,7 +45,7 @@
         background-color: transparent;
     }
 
-    input:not(:placeholder-shown) ~ .search-btn {
+    input:not(:placeholder-shown)~.search-btn {
         color: rgba(22, 24, 35, 0.75);
     }
 
@@ -62,15 +66,21 @@
 
 }
 
-.clear, .loading {
+.search-title {
+    font-size: 1.4rem;
+    padding: 4px 14px;
+    color: rgba(22, 24, 35, 0.5);
+}
+
+.clear,
+.loading {
     position: absolute;
     right: calc(var(--search-button-width) + 16px);
-    top:50%;
+    top: 50%;
     transform: translateY(-50%);
     font-size: 16px;
     color: rgba(22, 24, 35, 0.34);
 }
-
 
 
 .search-btn {
@@ -90,6 +100,7 @@
         cursor: pointer;
         background: rgba(22, 24, 35, 0.03);
     }
+
     &:active {
         cursor: pointer;
         background: rgba(22, 24, 35, 0.06);
