@@ -1,28 +1,31 @@
+// import { useEffect, useState } from "react";
+import images from "~/assets/images";
+import styles from "./Header.module.scss";
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "./Header.module.scss";
-import { useEffect, useState } from "react";
-import images from "~/assets/images";
 import {
   faCircleXmark,
   faSpinner,
   faMagnifyingGlass,
+  faPlus,
+  faSignIn,
 } from "@fortawesome/free-solid-svg-icons";
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
-import AccountItem from "../AccountItem";
+import AccountItem from "~/components/AccountItem";
+import Button from "~/components/Core-component/Button";
 
 const cx = classNames.bind(styles);
 
 console.log(images.logo);
 function Header() {
-  const [saerchResult, setSearchResult] = useState([]);
+  // const [searchResult, setSearchResult] = useState([]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setSearchResult([1, 2, 3]);
-    }, 0);
-  });
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setSearchResult([1, 2, 3]);
+  //   }, 0);
+  // });
 
   return (
     <header className={cx("wrapper")}>
@@ -34,7 +37,8 @@ function Header() {
         <div>
           <Tippy
             interactive
-            visible={saerchResult.length > 0}
+            // visible={searchResult.length > 0}
+            visible={false}
             render={(attrs) => (
               <div className={cx("search-result")} tabIndex="-1" {...attrs}>
                 <PopperWrapper>
@@ -66,7 +70,12 @@ function Header() {
           </Tippy>
         </div>
 
-        <div className={cx("action")}>Action</div>
+        <div className={cx("action")}>
+          <Button upload leftIcon={<FontAwesomeIcon icon={faPlus} />}>Upload</Button>
+          <Button primary rightIcon={<FontAwesomeIcon icon={faSignIn}/>}>
+            Log in
+          </Button>
+        </div>
       </div>
     </header>
   );
