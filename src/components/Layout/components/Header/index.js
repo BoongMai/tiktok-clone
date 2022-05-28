@@ -124,11 +124,6 @@ function Header() {
             </div>
           </HeadLessTippy>
         </div>
-        <div>
-              33333
-        </div>
-
-
         <div className={cx("action")}>
           {currentUser ? (
             <>
