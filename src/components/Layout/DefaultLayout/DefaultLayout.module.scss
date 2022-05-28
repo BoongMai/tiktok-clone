@@ -6,6 +6,7 @@
 
 .container {
     width: var(--defaul-layout-width);
+    padding: 0 var(--defaul-layout-horizontal-spacer);
     min-height: 100px;
     display: flex;
     // background-color: #909090

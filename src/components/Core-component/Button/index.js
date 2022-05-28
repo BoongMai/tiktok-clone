@@ -24,6 +24,7 @@ function Button({
   ...passProps
 }) {
   let Comp = "button";
+  
   const props = {
     onClick,
     ...passProps,
@@ -60,7 +61,6 @@ function Button({
 
   return (
     <Comp className={classes} {...props}>
-      {/* {upload && <FontAwesomeIcon className={cx("icon-plus")} icon={faPlus} />} */}
       {leftIcon && <span className={cx('icon')}>{leftIcon}</span> }
       <span className={cx('title')}>{children}</span>
       {rightIcon && <span className={cx('icon')}>{rightIcon}</span> }

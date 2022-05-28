@@ -13,12 +13,13 @@
 }
 
 .custom-login {
-   color: red;
+    color: red;
 }
 
 .inner {
     height: 100%;
     width: var(--defaul-layout-width);
+
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -112,6 +113,29 @@
     }
 }
 
+.action {
+    display: flex;
+    align-items: center;
+}
 
+.more-btn {
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 2rem;
+    margin-left: 28px;
+    padding: 4px 8px;
+}
 
-.action {}
+.action-btn {
+    background-color: transparent;
+    font-size: 2rem;
+    padding: 4px 12px;
+}
+
+.avatar-user {
+    object-fit: cover;
+    border-radius: 9999px;
+    width: 32px;
+    height: 32px;
+    margin-left: 10px;
+}

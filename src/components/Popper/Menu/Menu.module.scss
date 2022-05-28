@@ -1,0 +1,44 @@
+.content {
+    width: 244px;
+    margin-bottom: 5px;
+}
+
+.menu-item {
+    width: 100%;
+    margin-left: 0 !important;
+    display: flex;
+    border-radius: 0;
+    padding: 11px 16px;
+
+    &:hover {
+        background: rgba(22, 24, 35, 0.03);
+    }
+}
+
+.centent-items {
+    padding-bottom: 8px;
+}
+
+
+// Header-Popper
+
+.header {
+   position: relative;
+   height: 50px;
+}
+
+.back-btn {
+    width: 24%;
+    height: 100%;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.header-title {
+    font-weight: 600;
+   position: absolute;
+   font-size:16px;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
