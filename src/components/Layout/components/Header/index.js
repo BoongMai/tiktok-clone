@@ -14,8 +14,11 @@ import {
   faCircleQuestion,
   faKeyboard,
   faCloudUpload,
+  faGear,
+  faCoins,
+  faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
-import { faMessage } from "@fortawesome/free-regular-svg-icons";
+import { faMessage, faUser } from "@fortawesome/free-regular-svg-icons";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional
 import HeadLessTippy from "@tippyjs/react/headless";
@@ -26,6 +29,9 @@ import Button from "~/components/Core-component/Button";
 import Menu from "~/components/Popper/Menu";
 
 const cx = classNames.bind(styles);
+
+// Current user
+const currentUser = true;
 
 const MENU_ITEMS = [
   {
@@ -77,7 +83,32 @@ function Header() {
   //   }, 0);
   // }, []);
 
-  const currentUser = true;
+  const userMenu = [
+    {
+      icon: <FontAwesomeIcon icon={faUser} />,
+      title: "View profile",
+      to: "/@hoa",
+    },
+    {
+      icon: <FontAwesomeIcon icon={faCoins} />,
+      title: "Get coin",
+      to: "/coin",
+    },
+    {
+      icon: <FontAwesomeIcon icon={faGear} />,
+      title: "Setting",
+      to: "/settings",
+    },
+    ...MENU_ITEMS,
+    {
+      icon: <FontAwesomeIcon icon={faArrowRightFromBracket} />,
+      title: "Log out",
+      to: "/login",
+      separate: true
+    },
+  ];
+
+  console.log("userMenu: ", userMenu);
 
   return (
     <header className={cx("wrapper")}>
@@ -133,9 +164,11 @@ function Header() {
                 </button>
               </Tippy>
 
-              <button className={cx("action-btn")}>
-                <FontAwesomeIcon icon={faMessage} />
-              </button>
+              <Tippy delay={[0, 200]} content="Messege" placement="bottom">
+                <button className={cx("action-btn")}>
+                  <FontAwesomeIcon icon={faMessage} />
+                </button>
+              </Tippy>
             </>
           ) : (
             <>
@@ -146,11 +179,11 @@ function Header() {
             </>
           )}
 
-          <Menu items={MENU_ITEMS}>
+          <Menu items={currentUser ? userMenu : MENU_ITEMS}>
             {currentUser ? (
               <img
                 className={cx("avatar-user")}
-                src="https://p16-sign-sg.tiktokcdn.com/aweme/100x100/tos-alisg-avt-0068/e50cb5d0067961bbd8e4b22585d5b3ba.jpeg?x-expires=1653894000&x-signature=LzR5p2gf9pQgkzGMqAEyzlZMxdA%3D"
+                src="https://haycafe.vn/wp-content/uploads/2021/11/Anh-avatar-dep-chat-lam-hinh-dai-dien.jpg"
                 alt="Mèo Simmy"
               />
             ) : (

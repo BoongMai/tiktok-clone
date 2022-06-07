@@ -13,6 +13,10 @@
     &:hover {
         background: rgba(22, 24, 35, 0.03);
     }
+
+    &.separate {
+        border-top: 1px solid rgba(22, 24, 35, 0.12);
+    }
 }
 
 .centent-items {
@@ -23,8 +27,8 @@
 // Header-Popper
 
 .header {
-   position: relative;
-   height: 50px;
+    position: relative;
+    height: 50px;
 }
 
 .back-btn {
@@ -36,9 +40,9 @@
 
 .header-title {
     font-weight: 600;
-   position: absolute;
-   font-size:16px;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
+    position: absolute;
+    font-size: 16px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
