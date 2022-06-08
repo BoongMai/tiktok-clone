@@ -1,32 +1,28 @@
-import { useState } from "react";
+// import { useState } from "react";
 import images from "~/assets/images";
 import styles from "./Header.module.scss";
 import classNames from "classnames/bind";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCircleXmark,
-  faSpinner,
-  faMagnifyingGlass,
   faPlus,
   faEllipsisVertical,
   faLanguage,
   faCircleQuestion,
   faKeyboard,
-  faCloudUpload,
   faGear,
   faCoins,
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
-import { faMessage, faUser } from "@fortawesome/free-regular-svg-icons";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional
-import HeadLessTippy from "@tippyjs/react/headless";
 
-import { Wrapper as PopperWrapper } from "~/components/Popper";
-import AccountItem from "~/components/AccountItem";
 import Button from "~/components/Core-component/Button";
 import Menu from "~/components/Popper/Menu";
+import MessegeIcon from "~/components/Icons";
+import Image from "~/components/Images";
+import { SearchHeader } from "../Search";
 
 const cx = classNames.bind(styles);
 
@@ -63,19 +59,19 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-  const [textvalue, setTextValue] = useState("");
-  const [visible, setVisible] = useState(false);
+  // const [textvalue, setTextValue] = useState("");
+  // const [visible, setVisible] = useState(false);
 
-  const handleInput = (e) => {
-    setTextValue(e.target.value);
-    if (e.target.value === "") {
-      setVisible(false);
-    } else if (e.target.value !== "") {
-      setTimeout(() => {
-        setVisible(!visible);
-      }, 1000);
-    }
-  };
+  // const handleInput = (e) => {
+  //   setTextValue(e.target.value);
+  //   if (e.target.value === "") {
+  //     setVisible(false);
+  //   } else if (e.target.value !== "") {
+  //     setTimeout(() => {
+  //       setVisible(!visible);
+  //     }, 1000);
+  //   }
+  // };
 
   // useEffect(() => {
   //   setTimeout(() => {
@@ -104,11 +100,11 @@ function Header() {
       icon: <FontAwesomeIcon icon={faArrowRightFromBracket} />,
       title: "Log out",
       to: "/login",
-      separate: true
+      separate: true,
     },
   ];
 
-  console.log("userMenu: ", userMenu);
+  // console.log("userMenu: ", userMenu);
 
   return (
     <header className={cx("wrapper")}>
@@ -117,56 +113,20 @@ function Header() {
           <img src={images.logo} alt="tiktok" />
         </div>
 
-        <div>
-          <HeadLessTippy
-            interactive
-            visible={visible}
-            render={(attrs) => (
-              <div className={cx("search-result")} tabIndex="-1" {...attrs}>
-                <PopperWrapper>
-                  <h3 className={cx("search-title")}>Account</h3>
-                  <AccountItem />
-                  <AccountItem />
-                  <AccountItem />
-                </PopperWrapper>
-              </div>
-            )}
-          >
-            <div className={cx("search")}>
-              <input
-                value={textvalue}
-                onChange={handleInput}
-                placeholder={"Search user or videos"}
-              />
+        <SearchHeader />
 
-              <button className={cx("clear")}>
-                <FontAwesomeIcon icon={faCircleXmark} />.
-              </button>
-
-              {/* loading */}
-              <FontAwesomeIcon className={cx("loading")} icon={faSpinner} />
-              <div>
-                <HeadLessTippy content={"Tìm kiếm"}>
-                  <button className={cx("search-btn")}>
-                    <FontAwesomeIcon icon={faMagnifyingGlass} />
-                  </button>
-                </HeadLessTippy>
-              </div>
-            </div>
-          </HeadLessTippy>
-        </div>
         <div className={cx("action")}>
           {currentUser ? (
             <>
               <Tippy delay={[0, 200]} content="Upload video" placement="bottom">
-                <button className={cx("action-btn")}>
-                  <FontAwesomeIcon icon={faCloudUpload} />
-                </button>
+                <Button upload leftIcon={<FontAwesomeIcon icon={faPlus} />}>
+                  Upload
+                </Button>
               </Tippy>
 
               <Tippy delay={[0, 200]} content="Messege" placement="bottom">
                 <button className={cx("action-btn")}>
-                  <FontAwesomeIcon icon={faMessage} />
+                  <MessegeIcon />
                 </button>
               </Tippy>
             </>
@@ -181,11 +141,13 @@ function Header() {
 
           <Menu items={currentUser ? userMenu : MENU_ITEMS}>
             {currentUser ? (
-              <img
+              <Image
                 className={cx("avatar-user")}
                 src="https://haycafe.vn/wp-content/uploads/2021/11/Anh-avatar-dep-chat-lam-hinh-dai-dien.jpg"
                 alt="Mèo Simmy"
+                fallback='https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/fac92301a36c2275c99f393061ef04ca~c5_100x100.jpeg?x-expires=1654826400&x-signature=wGsEJopXhWR7AopfLcUC0ugE7O0%3D'
               />
+
             ) : (
               <button className={cx("more-btn")}>
                 <FontAwesomeIcon icon={faEllipsisVertical} />
