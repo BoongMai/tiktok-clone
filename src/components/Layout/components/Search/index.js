@@ -15,28 +15,31 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export const SearchHeader = () => {
   const cx = classNames.bind(styles);
   const inputRef = useRef();
-
   const [textvalue, setTextValue] = useState("");
-  const [visible, setVisible] = useState(false);
-  const [showResult, setShowResult] = useState(true);
   const [searchResult, setSearchResult] = useState(true);
+  const [showResult, setShowResult] = useState(true);
+  // const [visible, setVisible] = useState(false);
 
-  const handleInput = (e) => {
-    setTextValue(e.target.value);
-    if (e.target.value === "") {
-      setVisible(false);
-    } else if (e.target.value !== "") {
-      setTimeout(() => {
-        setVisible(!visible);
-      }, 1000);
-    }
-  };
+  console.log("search reasult: ", showResult);
+  // const handleInput = (e) => {
+  //   setTextValue(e.target.value);
+  //   if (e.target.value === "") {
+  //     setVisible(false);
+  //   } else if (e.target.value !== "") {
+  //     setTimeout(() => {
+  //       setVisible(!visible);
+  //     }, 1000);
+  //   }
+  // };
 
   useEffect(() => {
-    setTimeout(() => {
-      setSearchResult([1]);
-    }, 0);
-  }, []);
+    fetch("https://tiktok.fullstack.edu.vn/api/users/search?q=hoaa&type=less")
+      .then((res) => res.json())
+      .then((res) => {
+        // setSearchResult(res.data);
+        setSearchResult(res?.data);
+      });
+  }, [textvalue]);
 
   const handleClear = () => {
     setTextValue("");
@@ -51,6 +54,11 @@ export const SearchHeader = () => {
     if (searchResult.length > 0) {
       setShowResult(true);
     }
+  };
+
+  const handleTextVal = (e) => {
+    setTextValue(e.target.value);
+    console.log("text value ne2:", e.target.value);
   };
 
   return (
@@ -75,11 +83,11 @@ export const SearchHeader = () => {
           <input
             ref={inputRef}
             value={textvalue}
+            onChange={(e) =>{ handleTextVal(e)}}
             placeholder={"Search user or videos"}
-            onChange={(e) => handleInput(e)}
             onFocus={handleShowSearchResult}
+            // onChange={(e) => handleInput(e)}
           />
-
           {!!textvalue && (
             <button onClick={handleClear} className={cx("clear")}>
               <FontAwesomeIcon icon={faCircleXmark} />
@@ -87,7 +95,6 @@ export const SearchHeader = () => {
           )}
 
           {/* <FontAwesomeIcon className={cx("loading")} icon={faSpinner} /> */}
-
           {/* loading */}
           <div>
             <HeadLessTippy content={"Tìm kiếm"}>
