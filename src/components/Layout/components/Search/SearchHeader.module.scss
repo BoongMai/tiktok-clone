@@ -41,8 +41,10 @@
     border-radius: var(--border-radius);
     border: 1.5px solid transparent;
 
+
     input {
         flex: 1;
+        font-family: var( --font-family);
         caret-color: var(--primary);
         padding: 0 16px;
         color: var(--black);
@@ -51,9 +53,7 @@
         background-color: transparent;
     }
 
-    input:not(:placeholder-shown)~.search-btn {
-        color: rgba(22, 24, 35, 0.75);
-    }
+    input:not(:placeholder-shown)~ 
 
     &::after {
         content: "";
@@ -72,6 +72,10 @@
 
 }
 
+.color-btn {
+    color: black;
+}
+
 .search-title {
     font-size: 1.4rem;
     padding: 4px 14px;
@@ -86,6 +90,20 @@
     transform: translateY(-50%);
     font-size: 16px;
     color: rgba(22, 24, 35, 0.34);
+}
+
+.loading {
+    animation: spiner 0.8s linear infinite;
+}
+
+@keyframes spiner {
+    from {
+        transform: translateY(-50%) rotate(0);
+    }
+
+    to {
+        transform: translateY(-50%) rotate(360deg);
+    }
 }
 
 
@@ -111,4 +129,5 @@
         cursor: pointer;
         background: rgba(22, 24, 35, 0.06);
     }
+
 }

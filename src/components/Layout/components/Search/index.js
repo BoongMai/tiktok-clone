@@ -1,26 +1,28 @@
 import styles from "./SearchHeader.module.scss";
 import classNames from "classnames/bind";
+import { useDebounce } from "~/components/hooks";
+import * as searchService from "~/apiServices/searchService";
 
 import { useState, useRef, useEffect } from "react";
-import {
-  faCircleXmark,
-  faMagnifyingGlass,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark, faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 import HeadLessTippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 import AccountItem from "~/components/AccountItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SearchIcon } from "~/components/Icons";
 
 export const SearchHeader = () => {
   const cx = classNames.bind(styles);
   const inputRef = useRef();
   const [textvalue, setTextValue] = useState("");
-  const [searchResult, setSearchResult] = useState(true);
+  const [searchResult, setSearchResult] = useState([]);
   const [showResult, setShowResult] = useState(true);
+  const [loading, setLoading] = useState(false);
   // const [visible, setVisible] = useState(false);
 
-  console.log("search reasult: ", showResult);
+  const debouce = useDebounce(textvalue, 500);
+
   // const handleInput = (e) => {
   //   setTextValue(e.target.value);
   //   if (e.target.value === "") {
@@ -33,13 +35,22 @@ export const SearchHeader = () => {
   // };
 
   useEffect(() => {
-    fetch("https://tiktok.fullstack.edu.vn/api/users/search?q=hoaa&type=less")
-      .then((res) => res.json())
-      .then((res) => {
-        // setSearchResult(res.data);
-        setSearchResult(res?.data);
-      });
-  }, [textvalue]);
+    if (!debouce.trim()) {
+      setSearchResult([]);
+      return;
+    }
+
+    const fetchAPI = async () => {
+      setLoading(true);
+
+      const result = await searchService.search(debouce);
+      setSearchResult(result);
+      
+      setLoading(false);
+    };
+
+    fetchAPI();
+  }, [debouce]);
 
   const handleClear = () => {
     setTextValue("");
@@ -51,14 +62,16 @@ export const SearchHeader = () => {
   };
 
   const handleShowSearchResult = () => {
-    if (searchResult.length > 0) {
+    if (searchResult?.length > 0) {
       setShowResult(true);
     }
   };
 
   const handleTextVal = (e) => {
-    setTextValue(e.target.value);
-    console.log("text value ne2:", e.target.value);
+    const searchValue = e.target.value
+    if(!searchValue.startsWith(' ')) {
+      setTextValue(searchValue);
+    }
   };
 
   return (
@@ -67,14 +80,14 @@ export const SearchHeader = () => {
         interactive
         onClickOutside={handleHideResult}
         // visible
-        visible={showResult && searchResult.length > 0}
+        visible={showResult && textvalue.length > 0}
         render={(attrs) => (
           <div className={cx("search-result")} tabIndex="-1" {...attrs}>
             <PopperWrapper>
               <h3 className={cx("search-title")}>Account</h3>
-              <AccountItem />
-              <AccountItem />
-              <AccountItem />
+              {searchResult?.map((result) => (
+                <AccountItem key={result.id} data={result} />
+              ))}
             </PopperWrapper>
           </div>
         )}
@@ -83,23 +96,28 @@ export const SearchHeader = () => {
           <input
             ref={inputRef}
             value={textvalue}
-            onChange={(e) =>{ handleTextVal(e)}}
+            onChange={(e) => {
+              handleTextVal(e);
+            }}
             placeholder={"Search user or videos"}
             onFocus={handleShowSearchResult}
             // onChange={(e) => handleInput(e)}
           />
-          {!!textvalue && (
+          {loading === false && !!textvalue && (
             <button onClick={handleClear} className={cx("clear")}>
               <FontAwesomeIcon icon={faCircleXmark} />
             </button>
           )}
 
-          {/* <FontAwesomeIcon className={cx("loading")} icon={faSpinner} /> */}
+          {loading && (
+            <FontAwesomeIcon className={cx("loading")} icon={faSpinner} />
+          )}
+
           {/* loading */}
           <div>
             <HeadLessTippy content={"Tìm kiếm"}>
-              <button className={cx("search-btn")}>
-                <FontAwesomeIcon icon={faMagnifyingGlass} />
+              <button onMouseDown={(e) => e.preventDefault()} className={cx("search-btn")}>
+                <SearchIcon className ={textvalue ? cx("color-btn") : ""} />
               </button>
             </HeadLessTippy>
           </div>

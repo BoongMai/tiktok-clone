@@ -2,6 +2,7 @@
 import images from "~/assets/images";
 import styles from "./Header.module.scss";
 import classNames from "classnames/bind";
+import routesConfig from "~/config/routes";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,9 +19,10 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional
 
+import { Link } from "react-router-dom";
 import Button from "~/components/Core-component/Button";
 import Menu from "~/components/Popper/Menu";
-import MessegeIcon from "~/components/Icons";
+import { MessegeIcon } from "~/components/Icons";
 import Image from "~/components/Images";
 import { SearchHeader } from "../Search";
 
@@ -110,7 +112,9 @@ function Header() {
     <header className={cx("wrapper")}>
       <div className={cx("inner")}>
         <div className={cx("logo")}>
-          <img src={images.logo} alt="tiktok" />
+          <Link to={routesConfig.home}>
+            <img src={images.logo} alt="tiktok" />
+          </Link>
         </div>
 
         <SearchHeader />
@@ -145,9 +149,8 @@ function Header() {
                 className={cx("avatar-user")}
                 src="https://haycafe.vn/wp-content/uploads/2021/11/Anh-avatar-dep-chat-lam-hinh-dai-dien.jpg"
                 alt="Mèo Simmy"
-                fallback='https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/fac92301a36c2275c99f393061ef04ca~c5_100x100.jpeg?x-expires=1654826400&x-signature=wGsEJopXhWR7AopfLcUC0ugE7O0%3D'
+                fallback="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/fac92301a36c2275c99f393061ef04ca~c5_100x100.jpeg?x-expires=1654826400&x-signature=wGsEJopXhWR7AopfLcUC0ugE7O0%3D"
               />
-
             ) : (
               <button className={cx("more-btn")}>
                 <FontAwesomeIcon icon={faEllipsisVertical} />
